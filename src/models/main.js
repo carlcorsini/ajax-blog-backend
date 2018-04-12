@@ -27,8 +27,11 @@ createPost = (title, content) => {
     content
   };
   postArray.push(newPost);
+  console.log("New Post === ", newPost);
+  console.log("Post Array === ", postArray);
   fs.writeFileSync(dbPath2, JSON.stringify(postArray));
   result = postArray[postArray.length - 1];
+  console.log("Result is??? === ", result);
   return result;
 };
 
