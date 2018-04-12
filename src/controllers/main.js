@@ -7,7 +7,7 @@ finder = (array, paramId) => {
 };
 
 createPost = (req, res, next) => {
-  const result = model.createPost(req.body.title, req.body.body);
+  const result = model.createPost(req.body.title, req.body.content);
   if (result.error) next(result);
   else
     res.status(201).json({
