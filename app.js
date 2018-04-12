@@ -13,7 +13,7 @@ var middlewares = jsonServer.defaults();
 
 server.use(middlewares);
 server.use(router);
-server.listen(port, function() {
+server.listen(3000, function() {
   console.log("JSON Server is running");
 });
 
