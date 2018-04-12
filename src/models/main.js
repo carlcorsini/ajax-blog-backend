@@ -34,6 +34,7 @@ createPost = (title, content) => {
 
 getAllPosts = limit => {
   const postArray = JSON.parse(dbPath, "utf-8");
+  console.log("what is in here??? == ", postArray);
   const result = !limit ? postArray : postArray.slice(0, limit);
   return result;
 };
