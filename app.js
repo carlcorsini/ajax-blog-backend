@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 const cors = require("cors");
 var jsonServer = require("json-server");
 var server = jsonServer.create();
-var db = require("./db/db");
+var db = {};
 var router = jsonServer.router(db);
 var middlewares = jsonServer.defaults();
 
