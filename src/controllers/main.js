@@ -49,6 +49,7 @@ update = (req, res, next) => {
       message: `item with ID: ${req.params.id} updated`
     })
 }
+
 deletePost = (req, res, next) => {
   const result = model.deletePost(req.params.id)
   if (result.error) next(result)

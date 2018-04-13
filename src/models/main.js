@@ -4,6 +4,7 @@ const path = require('path')
 const fs = require('fs')
 const dbPath = fs.readFileSync(path.join(__dirname, database, 'db.json'))
 const dbPath2 = path.join(__dirname, database, 'db.json')
+const theDataBase = require('../../database/db.json')
 
 finder = (array, paramId) => {
   return array.find(a => {
@@ -12,6 +13,7 @@ finder = (array, paramId) => {
 }
 
 createPost = (title, content) => {
+  console.log('hey')
   let result
   if (!content || !title) {
     result = {
@@ -20,47 +22,44 @@ createPost = (title, content) => {
     }
     return result
   }
-  const postArray = JSON.parse(dbPath, 'utf-8')
+
+  // const postArray = theDatabase
+
   let newPost = {
     id: uuid(),
     title,
     content
   }
-  postArray.push(newPost)
+
+  theDataBase.push(newPost)
+  console.log('someshit=====', theDataBase)
   console.log('New Post === ', newPost)
-  console.log('Post Array === ', postArray)
+  // console.log('Post Array === ', postArray)
   // fs.writeFileSync(dbPath2, JSON.stringify(postArray))
-  fs.writeFileSync(
-    path.join(__dirname, database, 'db.json'),
-    JSON.stringify(postArray)
-  )
+  // fs.writeFileSync(
+  // path.join(__dirname, database, 'db.json'),
+  // JSON.stringify(postArray)
+  // )
   result = postArray[postArray.length - 1]
-  console.log('Result is??? === ', result)
+  // console.log('Result is??? === ', result)
   return result
 }
 
 getAllPosts = limit => {
-  // const postArray = JSON.parse(dbPath, 'utf-8')
-  const postArray = JSON.parse(
-    fs.readFileSync(path.join(__dirname, database, 'db.json')),
-    'utf-8'
-  )
-  console.log('what is in here??? == ', postArray)
-  const result = !limit ? postArray : postArray.slice(0, limit)
-  return result
+  return theDataBase
 }
 
 getPostById = paramId => {
   let result
-  const postArray = JSON.parse(dbPath, 'utf-8')
-  if (!finder(postArray, paramId)) {
+  // const postArray = JSON.parse(dbPath, 'utf-8')
+  if (!finder(theDataBase, paramId)) {
     result = {
       status: 400,
       error: 'ID not found'
     }
     return result
   }
-  result = finder(postArray, paramId)
+  result = finder(theDataBase, paramId)
   return result
 }
 
