@@ -40,7 +40,7 @@ createPost = (title, content) => {
   // path.join(__dirname, database, 'db.json'),
   // JSON.stringify(postArray)
   // )
-  result = postArray[postArray.length - 1]
+  result = newPost
   // console.log('Result is??? === ', result)
   return result
 }
