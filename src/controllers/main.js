@@ -20,7 +20,7 @@ getAllPosts = (req, res, next) => {
   const result = model.getAllPosts(req.query.limit)
   if (result.error) next(result)
   else
-    res.status(201).json({
+    res.status(200).json({
       result,
       message: 'all posts returned'
     })
@@ -44,7 +44,7 @@ update = (req, res, next) => {
   )
   if (result.error) next(result)
   else
-    res.status(200).json({
+    res.status(201).json({
       result,
       message: `item with ID: ${req.params.id} updated`
     })

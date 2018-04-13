@@ -1,10 +1,5 @@
-const database = '../../database'
 const uuid = require('uuid/v4')
-const path = require('path')
-const fs = require('fs')
-const dbPath = fs.readFileSync(path.join(__dirname, database, 'db.json'))
-const dbPath2 = path.join(__dirname, database, 'db.json')
-const theDataBase = require('../../database/db.json')
+const database = require('../../database/db.json')
 
 finder = (array, paramId) => {
   return array.find(a => {
@@ -13,7 +8,6 @@ finder = (array, paramId) => {
 }
 
 createPost = (title, content) => {
-  console.log('hey')
   let result
   if (!content || !title) {
     result = {
@@ -23,84 +17,68 @@ createPost = (title, content) => {
     return result
   }
 
-  // const postArray = theDatabase
-
   let newPost = {
     id: uuid(),
     title,
     content
   }
 
-  theDataBase.push(newPost)
-  console.log('someshit=====', theDataBase)
-  console.log('New Post === ', newPost)
-  // console.log('Post Array === ', postArray)
-  // fs.writeFileSync(dbPath2, JSON.stringify(postArray))
-  // fs.writeFileSync(
-  // path.join(__dirname, database, 'db.json'),
-  // JSON.stringify(postArray)
-  // )
-  result = newPost
-  // console.log('Result is??? === ', result)
-  return result
+  database.push(newPost)
+  return newPost
 }
 
 getAllPosts = limit => {
-  return theDataBase
+  return database
 }
 
 getPostById = paramId => {
   let result
-  // const postArray = JSON.parse(dbPath, 'utf-8')
-  if (!finder(theDataBase, paramId)) {
+
+  if (!finder(database, paramId)) {
     result = {
       status: 400,
       error: 'ID not found'
     }
     return result
   }
-  result = finder(theDataBase, paramId)
+  result = finder(database, paramId)
   return result
 }
 
 update = (paramId, title, content) => {
   let result
-  const postArray = JSON.parse(dbPath, 'utf-8')
 
-  if (!finder(postArray, paramId)) {
+  if (!finder(database, paramId)) {
     result = {
       status: 400,
       error: 'ID not found'
     }
     return result
   }
-  postArray.forEach((a, idx) => {
+  database.forEach((a, idx) => {
     if (a.id === paramId) {
-      postArray[idx].title = title
-      postArray[idx].content = content
-      result = postArray[idx]
+      database[idx].title = title
+      database[idx].content = content
+      result = database[idx]
     }
   })
-  fs.writeFileSync(dbPath2, JSON.stringify(postArray))
   return result
 }
 
 deletePost = paramId => {
-  const postArray = JSON.parse(dbPath, 'utf-8')
-  if (!finder(postArray, paramId)) {
+  if (!finder(database, paramId)) {
     result = {
       status: 400,
       error: 'ID not found'
     }
     return result
   }
-  postArray.forEach((a, idx) => {
+  database.forEach((a, idx) => {
     if (a.id === paramId) {
-      postArray.splice(idx, 1)
+      database.splice(idx, 1)
     }
   })
-  fs.writeFileSync(dbPath2, JSON.stringify(postArray))
-  return postArray
+  return database
 }
 
 module.exports = {
