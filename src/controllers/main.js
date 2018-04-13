@@ -7,14 +7,12 @@ finder = (array, paramId) => {
 }
 
 createPost = (req, res, next) => {
-  const promise = model.createPost(req.body.title, req.body.content)
+  const result = model.createPost(req.body.title, req.body.content)
   if (result.error) next(result)
   else
-    promise.then(result => {
-      res.status(201).json({
-        result,
-        message: 'item created'
-      })
+    res.status(201).json({
+      result,
+      message: 'item created'
     })
 }
 
